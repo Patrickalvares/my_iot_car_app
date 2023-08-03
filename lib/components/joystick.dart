@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_joystick/flutter_joystick.dart';
 
 class JoystickExample extends StatefulWidget {
-  const JoystickExample({Key? key}) : super(key: key);
+  final Function(double x, double y) onChanged;
+
+  const JoystickExample({Key? key, required this.onChanged}) : super(key: key);
 
   @override
   JoystickExampleState createState() => JoystickExampleState();
@@ -27,6 +29,7 @@ class JoystickExampleState extends State<JoystickExample> {
             print('X = $_x | Y = $_y');
           }
         });
+        widget.onChanged(_x, _y);
       },
     );
   }
