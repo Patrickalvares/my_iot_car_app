@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "334426511170",
+    "firebase_url": "https://myiotcar-default-rtdb.firebaseio.com",
+    "project_id": "myiotcar",
+    "storage_bucket": "myiotcar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:334426511170:android:1550ce550af659511c5adb",
+        "android_client_info": {
+          "package_name": "com.example.my_iot_car_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "334426511170-abe1g1pbmuutq1jm2j10k28464d50b9j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_zTPPmnaOANwOctV9J0Kr1X0n4__qZgw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "334426511170-abe1g1pbmuutq1jm2j10k28464d50b9j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
