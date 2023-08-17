@@ -19,6 +19,8 @@ class JoystickExampleState extends State<JoystickExample> {
   Widget build(BuildContext context) {
     return Joystick(
       mode: JoystickMode.all,
+      stickOffsetCalculator: const RectangleStickOffsetCalculator(),
+      base: const JoystickSquareBase(mode: JoystickMode.all),
       listener: (details) {
         setState(() {
           _x = details.x;
