@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:my_iot_car_app/components/joystick.dart';
+import 'package:my_iot_car_app/components/light_buttons.dart';
 import 'package:my_iot_car_app/services/light_firebase_methods.dart';
 import 'package:my_iot_car_app/services/movement_firebase_methods.dart';
 
@@ -20,6 +21,8 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _updateLdrValue();
+    LightFirebaseMethods.isAutoGetter();
+    LightFirebaseMethods.isOnGetter();
   }
 
   void _updateLdrValue() async {
@@ -58,6 +61,8 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
+            const AutoLightButtons(),
+            const TurnOnOfftButtons(),
             Text(
               'LDR: $ldrValue',
               style: const TextStyle(color: Colors.white),
