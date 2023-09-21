@@ -1,11 +1,10 @@
 import 'dart:async';
-import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:my_iot_car_app/components/joystick.dart';
-import 'package:my_iot_car_app/components/light_buttons.dart';
 import 'package:my_iot_car_app/services/light_firebase_methods.dart';
 import 'package:my_iot_car_app/services/movement_firebase_methods.dart';
 
+import '../components/ldr_display.dart';
 import '../components/switch_button.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -16,6 +15,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Timer? _timer;
   bool positive = true;
   String ldrValue = '';
   double xValue = 0;
@@ -27,6 +27,9 @@ class _HomeScreenState extends State<HomeScreen> {
     _updateLdrValue();
     LightFirebaseMethods.isAutoGetter();
     LightFirebaseMethods.isOnGetter();
+    Timer.periodic(const Duration(milliseconds: 500), (timer) {
+      setState(() {});
+    });
   }
 
   void _updateLdrValue() async {
@@ -47,48 +50,102 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            colors: [Color.fromARGB(255, 157, 97, 6), Color.fromARGB(255, 235, 189, 129)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color.fromARGB(255, 92, 60, 12),
+              Color.fromARGB(255, 255, 211, 153),
+            ],
           ),
         ),
         child: SafeArea(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Text(
-                'CarIoT Joystick',
-                style: TextStyle(fontSize: 35, color: Colors.yellow, fontStyle: FontStyle.italic),
-                textAlign: TextAlign.center,
-              ),
-              const SwitchButton(
-                action: LightFirebaseMethods.changeAutoLight,
-                getter: LightFirebaseMethods.isAutoGetter,
-                offText: Text('Manual'),
-                onText: Text('Auto'),
-                onIcon: Icon(Icons.auto_fix_high_outlined),
-                offIcon: Icon(Icons.back_hand_outlined),
-              ),
-              const TurnOnOfftButtons(),
-              Text(
-                'LDR: $ldrValue',
-                style: const TextStyle(color: Colors.white),
-              ),
-              Center(
+              const Padding(
+                padding: EdgeInsets.only(top: 8),
                 child: Text(
-                  'X: $xValue | Y: $yValue',
-                  style: const TextStyle(color: Colors.white, fontSize: 40),
+                  'CarIoT Joystick',
+                  style: TextStyle(
+                    fontSize: 35,
+                    color: Colors.white,
+                    fontStyle: FontStyle.normal,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
               ),
+              const Spacer(),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text(
+                    'Faróis Automáticos:',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SwitchButton(
+                    action: LightFirebaseMethods.changeAutoLight,
+                    getter: LightFirebaseMethods.isAutoGetter,
+                    offText: Text('Manual'),
+                    onText: Text('Auto'),
+                    onIcon: Icon(Icons.auto_fix_high_outlined),
+                    offIcon: Icon(Icons.back_hand_outlined),
+                  ),
+                ],
+              ),
+              const Spacer(),
+              FutureBuilder<bool>(
+                future: LightFirebaseMethods.isAutoGetter(),
+                builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      const Text(
+                        'Ligar/Desligar Faróis:',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SwitchButton(
+                        isActive: !(snapshot.data ?? false),
+                        action: () async {
+                          bool isOn = await LightFirebaseMethods.isOnGetter();
+                          LightFirebaseMethods.turnOnOffLight(isOn);
+                        },
+                        getter: LightFirebaseMethods.isOnGetter,
+                        offText: const Text('Desligado'),
+                        onText: const Text('Ligado'),
+                        onIcon: const Icon(Icons.flashlight_on_outlined),
+                        offIcon: const Icon(Icons.flashlight_off_outlined),
+                      ),
+                    ],
+                  );
+                },
+              ),
+              const Spacer(),
+              FarolLDR(ldrValue: ldrValue),
+              const Spacer(),
+              const Spacer(),
               Align(
                 alignment: const Alignment(0, 0.8),
                 child: JoystickExample(onChanged: _onJoystickChanged),
               ),
+              const Spacer(),
             ],
           ),
         ),

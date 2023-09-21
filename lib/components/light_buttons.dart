@@ -15,7 +15,7 @@ class _AutoLightButtonsState extends State<AutoLightButtons> {
       height: 50,
       width: 200,
       color: Colors.amber,
-      child: ElevatedButton(onPressed: () => LightFirebaseMethods.changeAutoLight(), child: Text('Auto')),
+      child: ElevatedButton(onPressed: () => LightFirebaseMethods.changeAutoLight(), child: const Text('Auto')),
     );
   }
 }
@@ -34,7 +34,7 @@ class _TurnOnOfftButtonsState extends State<TurnOnOfftButtons> {
       height: 50,
       width: 200,
       color: Colors.amber,
-      child: ElevatedButton(onPressed: () => LightFirebaseMethods.turnOnOffLight(true), child: Text('legar/deslogar')),
+      child: ElevatedButton(onPressed: () => LightFirebaseMethods.turnOnOffLight(true), child: const Text('legar/deslogar')),
     );
   }
 }

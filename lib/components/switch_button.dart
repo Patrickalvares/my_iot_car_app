@@ -1,8 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:flutter/material.dart';
-import '../services/light_firebase_methods.dart';
 
 class SwitchButton extends StatefulWidget {
   final Text offText;
@@ -11,6 +9,7 @@ class SwitchButton extends StatefulWidget {
   final Icon onIcon;
   final Function() action;
   final Function() getter;
+  final bool isActive;
 
   const SwitchButton({
     Key? key,
@@ -20,6 +19,7 @@ class SwitchButton extends StatefulWidget {
     required this.onIcon,
     required this.action,
     required this.getter,
+    this.isActive = true,
   }) : super(key: key);
 
   @override
@@ -32,10 +32,10 @@ class SwitchButtonState extends State<SwitchButton> {
   @override
   void initState() {
     super.initState();
-    _initializeSwitchState();
+    _switchState();
   }
 
-  Future<void> _initializeSwitchState() async {
+  Future<void> _switchState() async {
     _isOn = await widget.getter();
 
     setState(() {});
@@ -43,7 +43,9 @@ class SwitchButtonState extends State<SwitchButton> {
 
   @override
   Widget build(BuildContext context) {
+    _switchState();
     return AnimatedToggleSwitch<bool>.dual(
+      active: widget.isActive,
       current: _isOn,
       first: true,
       second: false,
