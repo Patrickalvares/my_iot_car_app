@@ -19,7 +19,11 @@ class FarolLDR extends StatelessWidget {
               height: 75,
               decoration: BoxDecoration(
                 border: Border.all(color: const Color.fromARGB(66, 0, 0, 0), width: 5),
-                color: Colors.yellow.withOpacity(1 - double.parse(ldrValue)),
+                color: ldrValue == ""
+                    ? Colors.yellow.withOpacity(1)
+                    : Colors.yellow.withOpacity(
+                        1 - double.parse(ldrValue),
+                      ),
                 borderRadius: BorderRadius.circular(50),
               ),
             ),

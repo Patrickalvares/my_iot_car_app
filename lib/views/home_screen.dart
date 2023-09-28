@@ -4,8 +4,10 @@ import 'package:my_iot_car_app/components/joystick.dart';
 import 'package:my_iot_car_app/services/light_firebase_methods.dart';
 import 'package:my_iot_car_app/services/movement_firebase_methods.dart';
 
+import '../calibration_alerts/first_step.dart';
 import '../components/ldr_display.dart';
 import '../components/switch_button.dart';
+import '../services/calibration_methods.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -64,8 +66,8 @@ class _HomeScreenState extends State<HomeScreen> {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Color.fromARGB(255, 92, 60, 12),
-              Color.fromARGB(255, 255, 211, 153),
+              Color.fromARGB(255, 147, 59, 247),
+              Color.fromARGB(255, 232, 227, 220),
             ],
           ),
         ),
@@ -136,6 +138,50 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   );
                 },
+              ),
+              const Spacer(),
+              GestureDetector(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return const FirsStep();
+                    },
+                  ).then((value) => SetCalibrationStep.setCalibrationStep(0));
+                },
+                child: Container(
+                  height: 55,
+                  width: 150,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(50)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black26,
+                        spreadRadius: 1,
+                        blurRadius: 2,
+                        offset: Offset(0, 1.5),
+                      ),
+                    ],
+                  ),
+                  child: const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.settings_input_composite_outlined,
+                        color: Colors.black,
+                        size: 24,
+                      ),
+                      Text(
+                        "Calibrar",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
               const Spacer(),
               FarolLDR(ldrValue: ldrValue),
