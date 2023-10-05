@@ -4,7 +4,7 @@ import 'package:my_iot_car_app/components/joystick.dart';
 import 'package:my_iot_car_app/services/light_firebase_methods.dart';
 import 'package:my_iot_car_app/services/movement_firebase_methods.dart';
 
-import '../calibration_alerts/first_step.dart';
+import '../calibration_alerts/step_one.dart';
 import '../components/ldr_display.dart';
 import '../components/switch_button.dart';
 import '../services/calibration_methods.dart';
@@ -145,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return const FirsStep();
+                      return const FirstStep();
                     },
                   ).then((value) => SetCalibrationStep.setCalibrationStep(0));
                 },

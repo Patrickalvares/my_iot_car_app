@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:my_iot_car_app/calibration_alerts/step_four.dart';
 import '../services/calibration_methods.dart';
 
-class FirsStep extends StatefulWidget {
-  const FirsStep({Key? key}) : super(key: key);
+class ThirdStep extends StatefulWidget {
+  const ThirdStep({Key? key}) : super(key: key);
 
   @override
-  State<FirsStep> createState() => _FirsStepState();
+  State<ThirdStep> createState() => _FirsStepState();
 }
 
-class _FirsStepState extends State<FirsStep> {
+class _FirsStepState extends State<ThirdStep> {
   @override
   void initState() {
-    SetCalibrationStep.setCalibrationStep(1);
+    SetCalibrationStep.setCalibrationStep(3);
     super.initState();
   }
 
@@ -29,17 +30,23 @@ class _FirsStepState extends State<FirsStep> {
           side: const BorderSide(color: Color.fromARGB(255, 147, 59, 247), width: 2),
         ),
         title: const Text(
-          'Calibragem: 1° Passo',
+          'Calibragem: 3° Passo',
           style: TextStyle(color: Colors.white),
         ),
         content: const Text(
-          'A roda esquerda está girando?',
+          'A roda esquerda está indo para frente?',
           style: TextStyle(color: Colors.white),
         ),
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.pop(context, 'Sim');
+              Navigator.of(context).pop();
+              Future.delayed(const Duration(milliseconds: 100), () {
+                showDialog(
+                  context: context,
+                  builder: (context) => const FourthStep(),
+                );
+              });
             },
             child: const Text(
               'Sim',
@@ -48,7 +55,14 @@ class _FirsStepState extends State<FirsStep> {
           ),
           TextButton(
             onPressed: () {
-              Navigator.pop(context, 'Não');
+              Navigator.of(context).pop();
+              Future.delayed(const Duration(milliseconds: 100), () {
+                SetCalibrationStep.invertMotorLeftDirectionPinValue();
+                showDialog(
+                  context: context,
+                  builder: (context) => const FourthStep(),
+                );
+              });
             },
             child: const Text(
               'Não',
