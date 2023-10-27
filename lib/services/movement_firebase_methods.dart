@@ -1,6 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 
 abstract class MovementFirebaseMethods {
+  // ignore: deprecated_member_use
   static final databaseReference = FirebaseDatabase.instance.reference();
 
   static void changeDirection({required double x, required double y}) {

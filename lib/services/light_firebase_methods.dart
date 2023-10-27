@@ -1,6 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 
 abstract class LightFirebaseMethods {
+  // ignore: deprecated_member_use
   static final databaseReference = FirebaseDatabase.instance.reference();
   static bool isAuto = false;
   static bool isLightOn = false;
