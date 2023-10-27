@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="my_iot_car_app"
+        android:label="IoT Car"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

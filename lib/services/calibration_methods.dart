@@ -1,5 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 
+// ignore: deprecated_member_use
 final databaseReference = FirebaseDatabase.instance.reference();
 
 class SetCalibrationStep {
@@ -25,6 +26,17 @@ class SetCalibrationStep {
         bool currentValue = snapshot.value as bool;
         bool invertedValue = !currentValue;
         databaseReference.child('config').child("motorLeftDirectionPinInverted").set(invertedValue);
+      }
+    });
+  }
+
+  static invertServoPinValue() {
+    databaseReference.child('config').child("servoPinInverted").once().then((DatabaseEvent event) {
+      DataSnapshot snapshot = event.snapshot;
+      if (snapshot.value != null) {
+        bool currentValue = snapshot.value as bool;
+        bool invertedValue = !currentValue;
+        databaseReference.child('config').child("servoPinInverted").set(invertedValue);
       }
     });
   }

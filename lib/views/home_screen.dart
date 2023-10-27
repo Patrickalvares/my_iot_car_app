@@ -78,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const Padding(
                 padding: EdgeInsets.only(top: 8),
                 child: Text(
-                  'CarIoT Joystick',
+                  'IoT Car Joystick',
                   style: TextStyle(
                     fontSize: 35,
                     color: Colors.white,
@@ -95,7 +95,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   Text(
                     'Faróis Automáticos:',
                     style: TextStyle(
-                      fontSize: 20,
+                      color: Colors.white,
+                      fontSize: 18,
+                      overflow: TextOverflow.ellipsis,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -119,7 +121,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       const Text(
                         'Ligar/Desligar Faróis:',
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 18,
+                          color: Colors.white,
+                          overflow: TextOverflow.ellipsis,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

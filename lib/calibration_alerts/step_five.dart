@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_iot_car_app/calibration_alerts/conclusion.dart';
 import '../services/calibration_methods.dart';
 
 class FifthStep extends StatefulWidget {
@@ -33,14 +34,19 @@ class _FirsStepState extends State<FifthStep> {
           style: TextStyle(color: Colors.white),
         ),
         content: const Text(
-          'A roda direita está indo para frente?',
+          'O carro está esterçando para a esquerda?',
           style: TextStyle(color: Colors.white),
         ),
         actions: [
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();
+              SetCalibrationStep.setCalibrationStep(0);
               Future.delayed(const Duration(milliseconds: 100), () {});
+              showDialog(
+                context: context,
+                builder: (context) => const Conclusion(),
+              );
             },
             child: const Text(
               'Sim',
@@ -49,8 +55,14 @@ class _FirsStepState extends State<FifthStep> {
           ),
           TextButton(
             onPressed: () {
+              SetCalibrationStep.invertServoPinValue();
+              SetCalibrationStep.setCalibrationStep(0);
               Navigator.of(context).pop();
               Future.delayed(const Duration(milliseconds: 100), () {});
+              showDialog(
+                context: context,
+                builder: (context) => const Conclusion(),
+              );
             },
             child: const Text(
               'Não',
